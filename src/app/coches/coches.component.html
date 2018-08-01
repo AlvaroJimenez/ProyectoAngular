@@ -1,8 +1,23 @@
 <h1>Componente de coches</h1>
-<hr/>
-<div style="float: left;">
+<style>
+
+    div{
+     float:left;   
+    }
+    .listado{
+        margin-left: 30px;
+    }
+    form{
+        width: 200px;
+    }
+    input[type="text"], span{
+        display: block;
+        width: 100%;
+    }
+</style>
+<div>
    
-    <form #formCoche= "ngForm" (ngSubmit) = "onSubmit()" style="width: 250px" >
+    <form #formCoche= "ngForm" (ngSubmit) = "onSubmit(); formCoche.reset();" style="width: 200px" >
         <p>
             <label> Nombre:</label>
             <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="coche.nombre" required>
@@ -25,15 +40,27 @@
                     El caballaje no es correcto!
             </span>
         </p>
-    <input type="submit" value ="Guardar">
+    <input type="submit" value ="Guardar" [disabled]="!formCoche.form.valid">
 
     </form>
 </div>
-<div style="float: left; margin-left: 30px">
+<div class="listado">
     <h4>Listado de coches</h4>
     <ul>
         <li *ngFor="let coche of coches">
             {{coche.nombre}} - {{coche.caballaje}} - {{coche.color}}
+        </li>
+    </ul>
+
+</div>
+
+
+<div class="listado">
+    <h3>Listado de articulos</h3>
+    <span *ngIf="!articulos">Cargando listado..</span>
+    <ul *ngIf="articulos">
+        <li *ngFor="let articulo of articulos">
+          {{articulo.id}} - {{articulo.title}}
         </li>
     </ul>
 
